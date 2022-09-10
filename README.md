@@ -8,5 +8,5 @@
 A simple console application for boredom.
 
 - Git Clone Project
-- Build Project (click on .sln)
+- Build Project (click on ImBored.sln)
 - Start Project
