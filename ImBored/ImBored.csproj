@@ -76,6 +76,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Jokes.cs" />
     <Compile Include="WhatsMyIpAdressDTO.cs" />
     <Compile Include="PredictGenderDTO.cs" />
     <Compile Include="Program.cs" />

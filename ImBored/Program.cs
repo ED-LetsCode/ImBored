@@ -8,7 +8,7 @@ namespace ImBored
     internal class Program
     {
         static void Main(string[] args)
-        { 
+        {
             ImBored();
         }
 
@@ -32,6 +32,14 @@ namespace ImBored
                         PredictGender();
                         break;
 
+                    case "4":
+                        GetSomeJokes();
+                        break;
+
+                    case "c":
+                        Console.Clear();
+                        break;
+
                     case "x":
                         consoleIsRunning = false;
                         break;
@@ -48,11 +56,25 @@ namespace ImBored
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="requestUrl"></param>
-        /// <returns></returns>
-        static async Task<T> GetResponse<T>(string requestUrl)
+        /// <returns>a Task with t datatype</t></returns>
+        static async Task<T> GetResponse<T>(string requestUrl) => JsonSerializer.Deserialize<T>(await new HttpClient().GetStringAsync(requestUrl));
+
+        /// <summary>
+        /// Get some random Jokes
+        /// </summary>
+        static void GetSomeJokes()
         {
-            return await JsonSerializer.DeserializeAsync<T>(new HttpClient()
-                        .GetStreamAsync(requestUrl).Result);
+            try
+            {
+                var response = GetResponse<Jokes>("https://v2.jokeapi.dev/joke/Any").Result;
+                Console.WriteLine($"category: {response.category}\n" +
+                            $"joke question: {response.setup}\n" +
+                            $"joke answer: {response.delivery}\n");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
         }
 
         /// <summary>
@@ -120,15 +142,11 @@ namespace ImBored
                               "What can I do?                                       [1]\n" +
                               "What's my Ip Adress?                                 [2]\n" +
                               "Predict the gender of a person based on their name   [3]\n" +
-                              "Exit Console                                         [x]\n" );
+                              "Get some random Jokes                                [4]\n" +
+                              "Clear Console                                        [c]\n" +
+                              "Exit Console                                         [x]\n");
             Console.ForegroundColor = ConsoleColor.White;
 
         }
     }
-
-
-
-
-
-
 }
